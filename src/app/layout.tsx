@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "./fireworks.scss";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "@/components/Navbar";
 
@@ -19,6 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <div className="pyro">
+          <div className="before"></div>
+          <div className="after"></div>
+        </div>
         <NavBar />
         {children}
       </body>
