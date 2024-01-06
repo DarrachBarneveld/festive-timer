@@ -21,10 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="pyro">
+        {/* <div className="pyro">
           <div className="before"></div>
           <div className="after"></div>
-        </div>
+        </div> */}
         <NavBar />
         {children}
       </body>
