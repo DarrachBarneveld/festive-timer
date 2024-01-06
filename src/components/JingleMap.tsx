@@ -42,29 +42,6 @@ const JingleMap: React.FC = () => {
   const [zoom, setZoom] = useState<number>(1);
   const [countryApiData, setCountryApiData] = useState();
 
-  function spinGlobe() {
-    if (!map.current) return;
-
-    const zoom = map.current.getZoom();
-
-    if (spinEnabled && !userInteracting && zoom! < maxSpinZoom) {
-      let distancePerSecond = 360 / secondsPerRevolution;
-
-      if (zoom! > slowSpinZoom) {
-        // Slow spinning at higher zooms
-        const zoomDif = (maxSpinZoom - zoom!) / (maxSpinZoom - slowSpinZoom);
-        distancePerSecond *= zoomDif;
-      }
-
-      const center = map.current.getCenter();
-      center.lng -= distancePerSecond;
-
-      // Smoothly animate the map over one second.
-      // When this animation is complete, it calls a 'moveend' event.
-      map.current.easeTo({ center, duration: 1000, easing: (n) => n });
-    }
-  }
-
   useEffect(() => {
     if (map.current) return; // initialize map only once
 
@@ -76,40 +53,6 @@ const JingleMap: React.FC = () => {
       },
       center: [lng, lat],
       zoom: zoom,
-    });
-
-    map.current.on("move", () => {
-      setLng(map.current!.getCenter().lng);
-      setLat(map.current!.getCenter().lat);
-      setZoom(map.current!.getZoom());
-    });
-
-    map.current.on("mousedown", () => {
-      userInteracting = true;
-    });
-
-    map.current.on("mouseup", () => {
-      userInteracting = false;
-      // spinGlobe();
-    });
-
-    map.current.on("dragend", () => {
-      userInteracting = false;
-      // spinGlobe();
-    });
-
-    map.current.on("pitchend", () => {
-      userInteracting = false;
-      // spinGlobe();
-    });
-
-    map.current.on("rotateend", () => {
-      userInteracting = false;
-      // spinGlobe();
-    });
-
-    map.current.on("moveend", () => {
-      // spinGlobe();
     });
 
     map.current.on("click", async (e) => {
@@ -127,6 +70,7 @@ const JingleMap: React.FC = () => {
     });
   }, [lng, lat, zoom]);
 
+  console.log("fire");
   return (
     <div>
       <div className={styles.sidebar}>
@@ -144,3 +88,60 @@ const JingleMap: React.FC = () => {
 };
 
 export default JingleMap;
+
+// function spinGlobe() {
+//   if (!map.current) return;
+
+//   const zoom = map.current.getZoom();
+
+//   if (spinEnabled && !userInteracting && zoom! < maxSpinZoom) {
+//     let distancePerSecond = 360 / secondsPerRevolution;
+
+//     if (zoom! > slowSpinZoom) {
+//       // Slow spinning at higher zooms
+//       const zoomDif = (maxSpinZoom - zoom!) / (maxSpinZoom - slowSpinZoom);
+//       distancePerSecond *= zoomDif;
+//     }
+
+//     const center = map.current.getCenter();
+//     center.lng -= distancePerSecond;
+
+//     // Smoothly animate the map over one second.
+//     // When this animation is complete, it calls a 'moveend' event.
+//     map.current.easeTo({ center, duration: 1000, easing: (n) => n });
+//   }
+// }
+
+// map.current.on("move", () => {
+//   setLng(map.current!.getCenter().lng);
+//   setLat(map.current!.getCenter().lat);
+//   setZoom(map.current!.getZoom());
+// });
+
+// map.current.on("mousedown", () => {
+//   userInteracting = true;
+// });
+
+// map.current.on("mouseup", () => {
+//   userInteracting = false;
+//   // spinGlobe();
+// });
+
+// map.current.on("dragend", () => {
+//   userInteracting = false;
+//   // spinGlobe();
+// });
+
+// map.current.on("pitchend", () => {
+//   userInteracting = false;
+//   // spinGlobe();
+// });
+
+// map.current.on("rotateend", () => {
+//   userInteracting = false;
+//   // spinGlobe();
+// });
+
+// map.current.on("moveend", () => {
+//   // spinGlobe();
+// });

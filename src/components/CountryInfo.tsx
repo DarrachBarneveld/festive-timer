@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Row, Col, Image } from "react-bootstrap";
 import countryData from "@/lib/data.json";
+import CountdownTimer from "./CountdownTimer";
 
 interface CountryCountdownProps {
   geoCodeData: any;
@@ -16,10 +17,16 @@ const CountryCountdown: React.FC<CountryCountdownProps> = ({
   const [countryText, setCountryText] = useState(
     "Choose a country and learn about their local celebrations!"
   );
+  const [time, setTime] = useState();
+
+  useEffect(() => {
+    displayGeolocationData();
+  }, []);
 
   async function displayGeolocationData() {
     // ONLY WORKS WITH BACKEND
     const id = timezoneData.timeZoneId.split("/");
+    setTime(id);
 
     const countryCodeResult = geoCodeData?.results.find((result: any) =>
       result.address_components.some((component: any) =>
@@ -54,8 +61,6 @@ const CountryCountdown: React.FC<CountryCountdownProps> = ({
     }
   }
 
-  displayGeolocationData(geoCodeData, timezoneData);
-
   return (
     <section className="container">
       <Row className="text-center mt-1" id="country-counter-container">
@@ -72,38 +77,9 @@ const CountryCountdown: React.FC<CountryCountdownProps> = ({
           </div>
         </Col>
 
+        {time && <CountdownTimer timeObj={time} />}
+
         {/* Timer */}
-        <Col
-          className="d-flex justify-content-center"
-          xs={12}
-          md={6}
-          order={{ xs: "first", lg: "last" }}
-        >
-          <div className="d-flex flex-column timer-container">
-            <div id="days" className="fw-bold m-1 px-3">
-              20
-            </div>
-            <div className="m-1">Days</div>
-          </div>
-          <div className="d-flex flex-column timer-container mx-3">
-            <div id="hours" className="fw-bold m-1 px-3">
-              20
-            </div>
-            <div className="m-1">Hours</div>
-          </div>
-          <div className="d-flex flex-column timer-container">
-            <div id="minutes" className="fw-bold m-1 px-3">
-              20
-            </div>
-            <div className="m-1">Min</div>
-          </div>
-          <div className="d-flex flex-column timer-container mx-3">
-            <div id="seconds" className="fw-bold m-1 px-3">
-              20
-            </div>
-            <div className="m-1">Sec</div>
-          </div>
-        </Col>
       </Row>
     </section>
   );
