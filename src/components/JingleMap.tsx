@@ -7,7 +7,7 @@ import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./JingleMap.module.css";
 import CountryCountdown from "./CountryCountdown";
-import countryData from "@/lib/data.json";
+import { TRADITION_DATA, Tradition } from "@/lib/data";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYmFybmVzbG93IiwiYSI6ImNsMGUyeHV6MDBmMGYzanBybDIyZ3BvOTQifQ.orwWz3XDibvdJSe_tfAxEA";
@@ -55,7 +55,7 @@ const JingleMap: React.FC = () => {
       zoom: zoom,
     });
 
-    countryData.forEach((country) => {
+    TRADITION_DATA.forEach((country) => {
       new mapboxgl.Marker({ color: "red" })
         .setLngLat(country.coords)
         .setPopup(
