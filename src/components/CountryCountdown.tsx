@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Image } from "react-bootstrap";
 import countryData from "@/lib/data.json";
 import CountdownTimer from "./CountdownTimer";
