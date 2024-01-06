@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useRef, useEffect, useState, use } from "react";
-import mapboxgl, { Map } from "mapbox-gl";
+import mapboxgl, { Map, Marker } from "mapbox-gl";
 import axios from "axios";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./JingleMap.module.css";
-import CountryCountdown from "./CountryInfo";
-import { ApiResponse } from "@/app/api/route";
+import CountryCountdown from "./CountryCountdown";
+import countryData from "@/lib/data.json";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYmFybmVzbG93IiwiYSI6ImNsMGUyeHV6MDBmMGYzanBybDIyZ3BvOTQifQ.orwWz3XDibvdJSe_tfAxEA";
@@ -53,6 +53,16 @@ const JingleMap: React.FC = () => {
       },
       center: [lng, lat],
       zoom: zoom,
+    });
+
+    countryData.forEach((country) => {
+      new mapboxgl.Marker({ color: "red" })
+        .setLngLat(country.coords)
+        .setPopup(
+          new mapboxgl.Popup().setHTML(`<h3>${country.country}</h3>
+        <p><strong>${country.celebration}</strong></p>`)
+        )
+        .addTo(map.current);
     });
 
     map.current.on("click", async (e) => {
