@@ -1,6 +1,11 @@
 import axios from "axios";
 
-export async function POST(req: Request) {
+export interface ApiResponse {
+  geoCodeData: any;
+  timezoneData: any;
+}
+
+export async function POST(req: Request): Promise<ApiResponse | Response> {
   const body = await req.json();
 
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;

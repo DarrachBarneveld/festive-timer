@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, use } from "react";
 import mapboxgl, { Map } from "mapbox-gl";
 import axios from "axios";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./JingleMap.module.css";
+import CountryCountdown from "./CountryInfo";
+import { ApiResponse } from "@/app/api/route";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYmFybmVzbG93IiwiYSI6ImNsMGUyeHV6MDBmMGYzanBybDIyZ3BvOTQifQ.orwWz3XDibvdJSe_tfAxEA";
@@ -26,9 +28,9 @@ async function fetchGoogleAPIHandler(lat: number, lng: number) {
       lng,
     });
 
-    console.log(data);
+    return data;
   } catch (error) {
-    console.error("Error fetching Google API:", error);
+    return error;
   }
 }
 
@@ -38,6 +40,7 @@ const JingleMap: React.FC = () => {
   const [lng, setLng] = useState<number>(-90);
   const [lat, setLat] = useState<number>(40);
   const [zoom, setZoom] = useState<number>(1);
+  const [countryApiData, setCountryApiData] = useState();
 
   function spinGlobe() {
     if (!map.current) return;
@@ -109,10 +112,11 @@ const JingleMap: React.FC = () => {
       // spinGlobe();
     });
 
-    map.current.on("click", (e) => {
+    map.current.on("click", async (e) => {
       const { lng, lat } = e.lngLat;
 
-      fetchGoogleAPIHandler(lat, lng);
+      const data = await fetchGoogleAPIHandler(lat, lng);
+      setCountryApiData(data);
 
       if (!map.current) return;
       map.current.flyTo({
@@ -129,6 +133,12 @@ const JingleMap: React.FC = () => {
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
       <div ref={mapContainer} className={styles["map-container"]} />
+      {countryApiData && (
+        <CountryCountdown
+          geoCodeData={countryApiData?.geoCodeData}
+          timezoneData={countryApiData?.timezoneData}
+        />
+      )}
     </div>
   );
 };
