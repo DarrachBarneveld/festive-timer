@@ -80,7 +80,6 @@ const JingleMap: React.FC = () => {
     });
   }, [lng, lat, zoom]);
 
-  console.log("fire");
   return (
     <div>
       <div ref={mapContainer} className={styles["map-container"]} />

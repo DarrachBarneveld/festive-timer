@@ -21,7 +21,6 @@
 
 body {
   background: var(--dark-blue) !important;
-  overflow-x: hidden;
 }
 
 a {
