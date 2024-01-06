@@ -7,7 +7,7 @@ import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./JingleMap.module.css";
 import CountryCountdown from "./CountryCountdown";
-import { TRADITION_DATA, Tradition } from "@/lib/data";
+import { TRADITION_DATA } from "@/lib/data";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYmFybmVzbG93IiwiYSI6ImNsMGUyeHV6MDBmMGYzanBybDIyZ3BvOTQifQ.orwWz3XDibvdJSe_tfAxEA";
@@ -45,7 +45,7 @@ const JingleMap: React.FC = () => {
   useEffect(() => {
     if (map.current) return; // initialize map only once
 
-    map.current = new mapboxgl.Map({
+    map.current = new Map({
       container: mapContainer.current!,
       style: "mapbox://styles/mapbox/outdoors-v12",
       projection: {
@@ -56,7 +56,11 @@ const JingleMap: React.FC = () => {
     });
 
     TRADITION_DATA.forEach((country) => {
-      new mapboxgl.Marker({ color: "red" })
+      const el = document.createElement("div");
+      el.className = "marker";
+      el.style.backgroundImage = `url(${country.marker})`;
+
+      new Marker(el)
         .setLngLat(country.coords)
         .setPopup(
           new mapboxgl.Popup().setHTML(`<h3>${country.country}</h3>
