@@ -1,13 +1,19 @@
 "use client";
 
-import React, { useRef, useEffect, useState, use } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import mapboxgl, { Map, Marker } from "mapbox-gl";
 import axios from "axios";
+import { FaLocationCrosshairs } from "react-icons/fa6";
+import { FaMusic } from "react-icons/fa6";
+import { FaPause } from "react-icons/fa";
+import { FaArrowsRotate } from "react-icons/fa6";
+import christmasMusic from "@/assets/audio/christmas-music.mp3";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./JingleMap.module.css";
 import CountryCountdown from "./CountryCountdown";
 import { TRADITION_DATA } from "@/lib/data";
+import MapButton from "./ui/MapButton";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYmFybmVzbG93IiwiYSI6ImNsMGUyeHV6MDBmMGYzanBybDIyZ3BvOTQifQ.orwWz3XDibvdJSe_tfAxEA";
@@ -41,6 +47,8 @@ const JingleMap: React.FC = () => {
   const [lat, setLat] = useState<number>(40);
   const [zoom, setZoom] = useState<number>(1);
   const [countryApiData, setCountryApiData] = useState();
+  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+  const audioRef = useRef();
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -84,6 +92,50 @@ const JingleMap: React.FC = () => {
     });
   }, [lng, lat, zoom]);
 
+  function playMusic() {
+    setIsPlayingMusic((prev) => !prev);
+    if (!isPlayingMusic) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  }
+  async function zoomToLatLng() {
+    const { lat, lng } = await getCurrentLocationLatLng();
+    map.current.flyTo({
+      center: [lng, lat],
+      zoom: 3,
+      essential: true,
+    });
+  }
+
+  async function getCurrentLocationLatLng() {
+    try {
+      const position = (await getCurrentLocation()) as any;
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      return { lat, lng };
+    } catch (error) {
+      alert("Unable to find location - default to Dublin");
+      return { lat: 53.34, lng: -6.26 };
+    }
+  }
+
+  async function getCurrentLocation() {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => resolve(position),
+          (error) => reject(error),
+          { enableHighAccuracy: true, maximumAge: 10000 }
+        );
+      } else {
+        reject(new Error("Geolocation is not supported by the browser."));
+      }
+    });
+  }
+
   return (
     <div>
       <div ref={mapContainer} className={styles["map-container"]} />
@@ -91,6 +143,41 @@ const JingleMap: React.FC = () => {
         geoCodeData={countryApiData?.geoCodeData}
         timezoneData={countryApiData?.timezoneData}
       />
+      <audio
+        ref={audioRef}
+        controls
+        src="/audio/christmas-music.mp3"
+        className="hidden"
+      >
+        Your browser does not support the
+        <code>audio</code> element.
+      </audio>
+
+      <div className="map-btn-container">
+        {!isPlayingMusic ? (
+          <MapButton
+            className="map-btn"
+            icon={<FaMusic />}
+            onClick={playMusic}
+          />
+        ) : (
+          <MapButton
+            className="map-btn"
+            icon={<FaPause />}
+            onClick={playMusic}
+          />
+        )}
+        <MapButton
+          className="map-btn"
+          icon={<FaLocationCrosshairs />}
+          onClick={zoomToLatLng}
+        />
+
+        <button id="btn-spin">
+          <i className="fas fa-pause" style={{ display: "none" }}></i>
+          <i className="fas fa-rotate"></i>
+        </button>
+      </div>
     </div>
   );
 };

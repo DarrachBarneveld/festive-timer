@@ -113,9 +113,7 @@ p {
   display: none !important;
 }
 
-#btn-spin,
-#btn-music,
-#btn-locate {
+.map-btn {
   font-family: var(--font-family);
   color: var(--accent-champagne);
   background: linear-gradient(
@@ -131,7 +129,7 @@ p {
   width: fit-content;
 }
 
-#btn-spin:hover {
+.map-btn:hover {
   background: linear-gradient(
     to right,
     var(--off-white) 0%,
