@@ -20,8 +20,6 @@
 }
 
 body {
-  display: flex;
-  flex-direction: column;
   background: var(--dark-blue) !important;
   overflow-x: hidden;
 }
