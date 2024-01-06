@@ -12,14 +12,17 @@ const CountryCountdown: React.FC<CountryCountdownProps> = ({
   geoCodeData,
   timezoneData,
 }) => {
-  const [flagSrc, setFlagSrc] = useState("https://flagcdn.com/ie.svg");
-  const [countryName, setCountryName] = useState("Ireland");
+  const [flagSrc, setFlagSrc] = useState(
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Flag_with_question_mark.svg/2560px-Flag_with_question_mark.svg.png"
+  );
+  const [countryName, setCountryName] = useState("Select A Country");
   const [countryText, setCountryText] = useState(
     "Choose a country and learn about their local celebrations!"
   );
   const [time, setTime] = useState();
 
   useEffect(() => {
+    if (!geoCodeData || timezoneData) return;
     displayGeolocationData();
   }, []);
 

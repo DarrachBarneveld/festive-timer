@@ -83,16 +83,11 @@ const JingleMap: React.FC = () => {
   console.log("fire");
   return (
     <div>
-      <div className={styles.sidebar}>
-        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-      </div>
       <div ref={mapContainer} className={styles["map-container"]} />
-      {countryApiData && (
-        <CountryCountdown
-          geoCodeData={countryApiData?.geoCodeData}
-          timezoneData={countryApiData?.timezoneData}
-        />
-      )}
+      <CountryCountdown
+        geoCodeData={countryApiData?.geoCodeData}
+        timezoneData={countryApiData?.timezoneData}
+      />
     </div>
   );
 };
