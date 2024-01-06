@@ -22,9 +22,9 @@ const CountryCountdown: React.FC<CountryCountdownProps> = ({
   const [time, setTime] = useState();
 
   useEffect(() => {
-    if (!geoCodeData || timezoneData) return;
+    if (!geoCodeData || !timezoneData) return;
     displayGeolocationData();
-  }, []);
+  }, [geoCodeData, timezoneData]);
 
   async function displayGeolocationData() {
     // ONLY WORKS WITH BACKEND
