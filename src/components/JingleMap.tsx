@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl, { Map } from "mapbox-gl";
+import axios from "axios";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./JingleMap.module.css";
@@ -17,6 +18,19 @@ const slowSpinZoom = 3;
 
 let userInteracting = false;
 let spinEnabled = true;
+
+async function fetchGoogleAPIHandler(lat: number, lng: number) {
+  try {
+    const { data } = await axios.post("/api", {
+      lat,
+      lng,
+    });
+
+    console.log(data);
+  } catch (error) {
+    console.error("Error fetching Google API:", error);
+  }
+}
 
 const JingleMap: React.FC = () => {
   const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -45,8 +59,6 @@ const JingleMap: React.FC = () => {
       // Smoothly animate the map over one second.
       // When this animation is complete, it calls a 'moveend' event.
       map.current.easeTo({ center, duration: 1000, easing: (n) => n });
-
-      console.log("fire");
     }
   }
 
@@ -75,26 +87,39 @@ const JingleMap: React.FC = () => {
 
     map.current.on("mouseup", () => {
       userInteracting = false;
-      spinGlobe();
+      // spinGlobe();
     });
 
     map.current.on("dragend", () => {
       userInteracting = false;
-      spinGlobe();
+      // spinGlobe();
     });
 
     map.current.on("pitchend", () => {
       userInteracting = false;
-      spinGlobe();
+      // spinGlobe();
     });
 
     map.current.on("rotateend", () => {
       userInteracting = false;
-      spinGlobe();
+      // spinGlobe();
     });
 
     map.current.on("moveend", () => {
-      spinGlobe();
+      // spinGlobe();
+    });
+
+    map.current.on("click", (e) => {
+      const { lng, lat } = e.lngLat;
+
+      fetchGoogleAPIHandler(lat, lng);
+
+      if (!map.current) return;
+      map.current.flyTo({
+        center: [lng, lat],
+        zoom: 3,
+        essential: true,
+      });
     });
   }, [lng, lat, zoom]);
 
