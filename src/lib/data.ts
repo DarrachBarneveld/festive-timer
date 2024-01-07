@@ -277,3 +277,35 @@ export type Tradition = {
   celebration: string;
   marker: string;
 };
+
+export const COUNTRY_INFORMATION = [
+  {
+    id: "ireland",
+    heading: "Lets Celebrate With Ireland!",
+    excerpt:
+      "To ward off evil spirits, families in Ireland make way for a healthy and prosperous New Year by banging loaves of Christmas bread against the walls and doors throughout the home.",
+    sections: [
+      {
+        title: "1. Dublin",
+        text: [
+          "On New Year’s Day, the capital city of Ireland becomes one huge venue for new year celebrations and merriment. There’s something for everyone in the annual New Year’s Festival Dublin and it is open to people of all ages.",
+          "Meeting House Square in Temple Bar, Dublin’s cultural epicenter, is hosting a party with live music this afternoon. Here, you can treat your senses to the spectacle of interactive art installations, or groove to live music and street performances. You may also affix your New Year’s resolutions to the designated Resolution Tree.",
+        ],
+      },
+      {
+        title: "2. Pub Crawl In Galway City, Co Galway",
+        text: [
+          "Every weekend of the year is a good time to visit Galway, but it’s an especially fun time to visit during the New Year’s Eve party. This old city in the west knows how to throw a good party, so you have a lot to look forward to in the coming New Year.",
+          "Everywhere you go, you’ll hear live music and see a diverse population of partygoers from all over Ireland and the world. All these things contribute to that special party vibe that makes Galway so well-known for celebrations. And if you’re here to celebrate the coming year, don’t settle in one place. Explore the many cool venues and party your way around Galway’s with a new year’s eve pub crawl.",
+        ],
+      },
+      {
+        title: "3. Watch the fireworks in Dingle, Co Kerry",
+        text: [
+          "Dingle’s New Year’s Eve celebrations are legendary and for good reason. They feature a heady cocktail of authentic Irish merriment, grand spectacles like fireworks and parades, and a wild party vibe.",
+          "Indeed, Dingle is a town that knows how to have a good time, as seen by the abundance of bars playing traditional Irish music that line its streets. On the eve of the New Year, however, thousands of people flock to the streets of the town center to ring in the new year in typical Kerry fashion.",
+        ],
+      },
+    ],
+  },
+] as const;
