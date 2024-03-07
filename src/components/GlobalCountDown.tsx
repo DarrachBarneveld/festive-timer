@@ -14,13 +14,11 @@ const GlobalCountDown: FunctionComponent<GlobalCountDownProps> = () => {
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
   const [isMinimised, setIsMinimised] = useState(false);
 
-  const left = window.innerWidth / 2;
-
   useEffect(() => {
     const dragBox = document.getElementById("drag-box");
     if (dragBox) {
       const rect = dragBox.getBoundingClientRect();
-      setStartPosition({ x: left, y: rect.top });
+      setStartPosition({ x: rect.left, y: rect.top });
     }
   }, []);
 
