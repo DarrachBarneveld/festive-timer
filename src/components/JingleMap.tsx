@@ -159,7 +159,28 @@ const JingleMap: React.FC = () => {
 
   return (
     <div className="position-relative">
-      <div ref={mapContainer} className={styles["map-container"]} />
+      <div ref={mapContainer} className={styles["map-container"]}>
+        <div className="map-btn-container">
+          {!isPlayingMusic ? (
+            <MapButton
+              className="map-btn"
+              icon={<FaMusic />}
+              onClick={playMusic}
+            />
+          ) : (
+            <MapButton
+              className="map-btn"
+              icon={<FaPause />}
+              onClick={playMusic}
+            />
+          )}
+          <MapButton
+            className="map-btn"
+            icon={<FaLocationCrosshairs />}
+            onClick={zoomToLatLng}
+          />
+        </div>
+      </div>
       <GlobalCountDown />
 
       <CountryCountdown
@@ -176,62 +197,8 @@ const JingleMap: React.FC = () => {
         Your browser does not support the
         <code>audio</code> element.
       </audio>
-      <div className="map-btn-container">
-        {!isPlayingMusic ? (
-          <MapButton
-            className="map-btn"
-            icon={<FaMusic />}
-            onClick={playMusic}
-          />
-        ) : (
-          <MapButton
-            className="map-btn"
-            icon={<FaPause />}
-            onClick={playMusic}
-          />
-        )}
-        <MapButton
-          className="map-btn"
-          icon={<FaLocationCrosshairs />}
-          onClick={zoomToLatLng}
-        />
-      </div>
     </div>
   );
 };
 
 export default JingleMap;
-
-// map.current.on("move", () => {
-//   setLng(map.current!.getCenter().lng);
-//   setLat(map.current!.getCenter().lat);
-//   setZoom(map.current!.getZoom());
-// });
-
-// map.current.on("mousedown", () => {
-//   userInteracting = true;
-// });
-
-// map.current.on("mouseup", () => {
-//   userInteracting = false;
-//   // spinGlobe();
-// });
-
-// map.current.on("dragend", () => {
-//   userInteracting = false;
-//   // spinGlobe();
-// });
-
-// map.current.on("pitchend", () => {
-//   userInteracting = false;
-//   // spinGlobe();
-// });
-
-// map.current.on("rotateend", () => {
-//   userInteracting = false;
-//   // spinGlobe();
-// });
-
-// map.current.on("moveend", () => {
-//   // spinGlobe();
-// });

@@ -37,7 +37,7 @@ const GlobalCountDown: FunctionComponent<GlobalCountDownProps> = () => {
           <TiArrowMinimise className="text-white h4" />
         </button>
       </div>
-      <div className={`${isMinimised && "hidden"}`}>
+      <div className={`${isMinimised && "hidden"} pb-1`}>
         <CountdownTimer timeObj={GLOBAL_COUNTDOWN} />
       </div>
     </div>

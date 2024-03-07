@@ -32,29 +32,23 @@ const CountdownTimer: FunctionComponent<CountdownTimerProps> = ({
 
   return (
     <Col className="grid-container order-1 order-sm-2 order-md-3">
-      <div className="timer-container">
-        <h3 className={`fw-bold m-1 px-1 px-lg-3 ${lg && "lg-counter"}`}>
-          {time?.days}
-        </h3>
-        <p className={`${!lg && "my-1"}`}>Days</p>
+      <div className={`timer-container ${lg && "lg-counter"}`}>
+        <h3 className="fw-bold m-1 px-1 px-lg-3">{time?.days}</h3>
+        <p className="mb-1">Days</p>
       </div>
-      <div className=" timer-container">
-        <h3 className={`fw-bold m-1 px-1 px-lg-3 ${lg && "lg-counter"}`}>
-          {time?.hours}
-        </h3>
-        <p className={`${!lg && "my-1"}`}>Hours</p>
+      <div className={`timer-container ${lg && "lg-counter"}`}>
+        <h3 className="fw-bold m-1 px-1 px-lg-3">{time?.hours}</h3>
+        <p className="mb-1">Hours</p>
       </div>
-      <div className="timer-container">
-        <h3 className={`fw-bold m-1 px-1 px-lg-3 ${lg && "lg-counter"}`}>
-          {time?.minutes}
-        </h3>
-        <p className={`${!lg && "my-1"}`}>Mins</p>
+      <div className={`timer-container ${lg && "lg-counter"}`}>
+        <h3 className="fw-bold m-1 px-1 px-lg-3">{time?.minutes}</h3>
+        <p className="mb-1">Mins</p>
       </div>
-      <div className=" timer-container">
-        <h3 className={`fw-bold m-1 px-1 px-lg-3 ${lg && "lg-counter"}`}>
+      <div className={`timer-container ${lg && "lg-counter m"}`}>
+        <h3 className="fw-bold m-1 px-1 px-lg-3">
           {time?.seconds?.toFixed(0)}
         </h3>
-        <p className={`${!lg && "my-1"}`}>Secs</p>
+        <p className="mb-1">Secs</p>
       </div>
     </Col>
   );
