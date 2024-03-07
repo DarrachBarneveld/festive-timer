@@ -81,9 +81,6 @@ async function fetchGoogleAPIHandler(lat: number, lng: number) {
 const JingleMap: React.FC = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<Map>();
-  const [lng, setLng] = useState<number>(-90);
-  const [lat, setLat] = useState<number>(40);
-  const [zoom, setZoom] = useState<number>(1);
   const [countryApiData, setCountryApiData] =
     useState<GeoTimeAPIResponse>(INITIAL_DATA);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
@@ -98,8 +95,8 @@ const JingleMap: React.FC = () => {
       projection: {
         name: "globe",
       },
-      center: [lng, lat],
-      zoom: zoom,
+      center: [-90, -40],
+      zoom: 1,
     });
 
     TRADITION_DATA.forEach((country) => {
@@ -138,7 +135,7 @@ const JingleMap: React.FC = () => {
         essential: true,
       });
     });
-  }, [lng, lat, zoom]);
+  }, []);
 
   function playMusic() {
     setIsPlayingMusic((prev) => !prev);

@@ -6,6 +6,6 @@
 
 @media (min-width: 768px) {
   .map-container {
-    height: 90vh;
+    height: calc(100vh - 56px);
   }
 }
