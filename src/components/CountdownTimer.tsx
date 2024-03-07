@@ -23,7 +23,6 @@ const CountdownTimer: FunctionComponent<CountdownTimerProps> = ({
   }, []);
 
   function tick() {
-    console.log(timeRef.current);
     setTime(timeRef.current);
   }
 

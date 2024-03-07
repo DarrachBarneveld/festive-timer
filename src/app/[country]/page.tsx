@@ -9,7 +9,6 @@ interface PageProps {
 }
 
 const MainSection: FunctionComponent<PageProps> = ({ params }) => {
-  console.log(params);
   const { heading, excerpt, sections, id } = COUNTRY_INFORMATION.find(
     (country) => country.id === params.country
   )!;

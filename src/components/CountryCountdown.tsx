@@ -31,14 +31,10 @@ const CountryCountdown: React.FC<CountryCountdownProps> = ({
     const id = timezoneData.timeZoneId.split("/");
     setTime(id);
 
-    const countryCodeResult = geoCodeData?.results.find((result: any) =>
+    const countryCode = geoCodeData?.results.find((result: any) =>
       result.address_components.some((component: any) =>
         component.types.includes("country")
       )
-    );
-
-    const countryCode = countryCodeResult?.address_components.find(
-      (component: any) => component.types.includes("country")
     )?.short_name;
 
     const countryInfoResponse = await fetch(

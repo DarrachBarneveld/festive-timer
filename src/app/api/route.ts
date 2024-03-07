@@ -1,3 +1,4 @@
+import { GeoCodeAddress } from "@/components/JingleMap";
 import axios from "axios";
 
 export interface ApiResponse {
@@ -26,10 +27,17 @@ export async function POST(req: Request): Promise<ApiResponse | Response> {
       throw new Error(`Data not available!`);
     }
 
-    const geoCodeData = geoCodeResponse.data;
-    const timezoneData = timezoneResponse.data;
+    const geoCodeDataResults = geoCodeResponse.data.results;
 
-    return Response.json({ geoCodeData, timezoneData });
+    const geoCodeData: GeoCodeAddress[] = [];
+
+    const geoCodeDataArray = geoCodeDataResults.map((result: any) =>
+      geoCodeData.push(result.address_components)
+    );
+
+    const timeZoneData = timezoneResponse.data;
+
+    return Response.json({ geoCodeData, timeZoneData });
   } catch (error) {
     return Response.error();
   }

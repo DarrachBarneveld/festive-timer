@@ -7,6 +7,32 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 import { FaMusic } from "react-icons/fa6";
 import { FaPause } from "react-icons/fa";
 import { FaArrowsRotate } from "react-icons/fa6";
+import { z } from "zod";
+
+const timeZoneDataSchema = z
+  .object({
+    dstOffset: z.number(),
+    rawOffset: z.number(),
+    status: z.string(),
+    timeZoneId: z.string(),
+    timeZoneName: z.string(),
+  })
+  .optional();
+
+const addressComponentSchema = z.object({
+  long_name: z.string(),
+  short_name: z.string(),
+  types: z.array(z.string()),
+});
+
+const geoCodeDataArraySchema = z.array(z.array(addressComponentSchema));
+
+const fetchGoogleApiResponseSchema = z.object({
+  timeZoneData: timeZoneDataSchema,
+  geoCodeData: geoCodeDataArraySchema,
+});
+
+export type GeoCodeAddress = z.infer<typeof addressComponentSchema>;
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./JingleMap.module.css";
@@ -24,6 +50,7 @@ async function fetchGoogleAPIHandler(lat: number, lng: number) {
       lng,
     });
 
+    console.log(data);
     return data;
   } catch (error) {
     return error;
@@ -71,7 +98,11 @@ const JingleMap: React.FC = () => {
       const { lng, lat } = e.lngLat;
 
       const data = await fetchGoogleAPIHandler(lat, lng);
-      setCountryApiData(data);
+
+      const validatedData = fetchGoogleApiResponseSchema.safeParse(data);
+
+      console.log(validatedData);
+      // setCountryApiData(data);
 
       if (!map.current) return;
       map.current.flyTo({
