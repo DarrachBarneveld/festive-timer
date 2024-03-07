@@ -6,7 +6,6 @@ import axios from "axios";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import { FaMusic } from "react-icons/fa6";
 import { FaPause } from "react-icons/fa";
-import { TiArrowMinimise } from "react-icons/ti";
 
 import { z } from "zod";
 
@@ -72,8 +71,6 @@ async function fetchGoogleAPIHandler(lat: number, lng: number) {
       lat,
       lng,
     });
-
-    console.log(data);
 
     return data;
   } catch (error) {
