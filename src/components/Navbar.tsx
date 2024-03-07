@@ -8,7 +8,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const NavBar: React.FC = () => {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="header-nav mt-0">
+    <Navbar
+      bg="dark"
+      variant="dark"
+      expand="lg"
+      className="header-nav mt-0 p-1"
+    >
       <Container>
         <Navbar.Brand href="index.html">
           <strong>Festive</strong>Timer
