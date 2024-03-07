@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Image } from "react-bootstrap";
-import countryData from "@/lib/data.json";
 import CountdownTimer from "./CountdownTimer";
+import { GeoCodeAray, TimeZone } from "./JingleMap";
+import { getRestCountriesInformation } from "@/lib/geolocation";
+import { TRADITION_DATA } from "@/lib/data";
 
 interface CountryCountdownProps {
-  geoCodeData: any;
-  timezoneData: any;
+  geoCodeData: GeoCodeAray;
+  timezoneData: TimeZone;
 }
 
 const CountryCountdown: React.FC<CountryCountdownProps> = ({
@@ -19,7 +21,7 @@ const CountryCountdown: React.FC<CountryCountdownProps> = ({
   const [countryText, setCountryText] = useState(
     "Choose a country and learn about their local celebrations!"
   );
-  const [time, setTime] = useState();
+  const [time, setTime] = useState<string[]>();
 
   useEffect(() => {
     if (!geoCodeData || !timezoneData) return;
@@ -31,23 +33,19 @@ const CountryCountdown: React.FC<CountryCountdownProps> = ({
     const id = timezoneData.timeZoneId.split("/");
     setTime(id);
 
-    const countryCode = geoCodeData?.results.find((result: any) =>
-      result.address_components.some((component: any) =>
-        component.types.includes("country")
-      )
-    )?.short_name;
+    const countryCode = geoCodeData
+      .flatMap((result) => result)
+      .find((result) => result.types.includes("country"))?.short_name;
 
-    const countryInfoResponse = await fetch(
-      `https://restcountries.com/v3.1/alpha/${countryCode}`
-    );
-    const countryInfo = await countryInfoResponse.json();
+    if (!countryCode) return;
+    const countryInfo = await getRestCountriesInformation(countryCode);
 
     const flagSrc = countryInfo[0]?.flags?.svg;
 
     setFlagSrc(flagSrc);
     setCountryName(countryInfo[0]?.name?.common);
 
-    const filteredCountry = countryData.filter(
+    const filteredCountry = TRADITION_DATA.filter(
       (country) => country.country === countryInfo[0]?.name?.common
     );
 
@@ -63,12 +61,10 @@ const CountryCountdown: React.FC<CountryCountdownProps> = ({
   return (
     <section className="container">
       <Row className="text-center mt-1" id="country-counter-container">
-        {/* Flag */}
         <Col xs={12} md={2}>
           <Image src={flagSrc} id="flag" alt="image of the Irish flag" />
         </Col>
 
-        {/* Country Name */}
         <Col className="text-center" xs={12} md={4}>
           <div className="text-box">
             <h3 id="selectedCountry">{countryName}</h3>
@@ -77,8 +73,6 @@ const CountryCountdown: React.FC<CountryCountdownProps> = ({
         </Col>
 
         {time && <CountdownTimer timeObj={time} />}
-
-        {/* Timer */}
       </Row>
     </section>
   );

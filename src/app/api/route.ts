@@ -31,7 +31,7 @@ export async function POST(req: Request): Promise<ApiResponse | Response> {
 
     const geoCodeData: GeoCodeAddress[] = [];
 
-    const geoCodeDataArray = geoCodeDataResults.map((result: any) =>
+    geoCodeDataResults.forEach((result: any) =>
       geoCodeData.push(result.address_components)
     );
 

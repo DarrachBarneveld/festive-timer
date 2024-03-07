@@ -2,13 +2,15 @@ import { FunctionComponent, useEffect, useRef, useState } from "react";
 import { DateTime, DurationObjectUnits } from "luxon";
 import { Col } from "react-bootstrap";
 
-interface CountdownTimerProps {}
+interface CountdownTimerProps {
+  timeObj: string[];
+}
 
 const CountdownTimer: FunctionComponent<CountdownTimerProps> = ({
   timeObj,
 }) => {
-  const [time, setTime] = useState<DurationObjectUnits | undefined>(timeObj);
-  const timeRef = useRef();
+  const [time, setTime] = useState<DurationObjectUnits | undefined>();
+  const timeRef = useRef<DurationObjectUnits | undefined>(undefined);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -20,7 +22,7 @@ const CountdownTimer: FunctionComponent<CountdownTimerProps> = ({
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [timeObj]);
 
   function tick() {
     setTime(timeRef.current);
@@ -68,7 +70,7 @@ export default CountdownTimer;
  * Example format for location "Pacific" or "ETC"
  * Example format for town "Honolulu" or "GMT+1"
  */
-function getSpecificLocalTime(location, town) {
+function getSpecificLocalTime(location: string, town: string) {
   let specificLocalTime = DateTime.local({ zone: `${location}/${town}` });
   return specificLocalTime;
 }
@@ -81,7 +83,7 @@ function getSpecificLocalTime(location, town) {
  * Example format for town: "Honolulu" or GMT+1
  * Returns an object.
  **/
-function getNewYearTimeISO(date, location, town) {
+function getNewYearTimeISO(date: string, location: string, town: string) {
   return DateTime.fromISO(`${date}`, { zone: `${location}/${town}` });
 }
 
@@ -91,7 +93,7 @@ function getNewYearTimeISO(date, location, town) {
  * Example format for location "Pacific" or "ETC".
  * Example format for town "Honolulu" or "GMT+1".
  */
-function getTimeDifference(location, town) {
+function getTimeDifference(location: string, town: string) {
   let actualTime = getSpecificLocalTime(location, town);
   let newYearTime = getNewYearTimeISO(
     `${actualTime.year + 1}-01-01`,

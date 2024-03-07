@@ -19,26 +19,6 @@ const NavBar: React.FC = () => {
             <Link href="/">
               <Nav.Link as="span">Home</Nav.Link>
             </Link>
-            <NavDropdown title="Countries" id="navbarDropdown">
-              <Link href="/greece">
-                <NavDropdown.Item as="span">Greece</NavDropdown.Item>
-              </Link>
-              <Link href="/india">
-                <NavDropdown.Item as="span">India</NavDropdown.Item>
-              </Link>
-              <Link href="/ireland">
-                <NavDropdown.Item as="span">Ireland</NavDropdown.Item>
-              </Link>
-              <Link href="/japan">
-                <NavDropdown.Item as="span">Japan</NavDropdown.Item>
-              </Link>
-              <Link href="/poland">
-                <NavDropdown.Item as="span">Poland</NavDropdown.Item>
-              </Link>
-              <Link href="/spain">
-                <NavDropdown.Item as="span">Spain</NavDropdown.Item>
-              </Link>
-            </NavDropdown>
             <Link href="/team">
               <Nav.Link as="span">Team</Nav.Link>
             </Link>
