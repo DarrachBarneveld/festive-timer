@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 :root {
+  --space-black: #171a1c;
   --dark-blue: #031023;
   --lighter-blue: #153c75;
   --off-white: #f1f1f1;

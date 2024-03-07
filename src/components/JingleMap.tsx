@@ -158,7 +158,7 @@ const JingleMap: React.FC = () => {
   }
 
   return (
-    <div className="p-0 p-lg-3" style={{ background: "#171a1c" }}>
+    <div className="p-0 p-lg-3" style={{ background: "var(--space-black)" }}>
       <div className="position-relative">
         <div ref={mapContainer} className={styles["map-container"]}>
           <div className="map-btn-container">
