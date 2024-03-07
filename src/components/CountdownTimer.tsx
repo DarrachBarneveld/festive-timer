@@ -4,10 +4,12 @@ import { Col } from "react-bootstrap";
 
 interface CountdownTimerProps {
   timeObj: string[];
+  lg?: boolean;
 }
 
 const CountdownTimer: FunctionComponent<CountdownTimerProps> = ({
   timeObj,
+  lg,
 }) => {
   const [time, setTime] = useState<DurationObjectUnits | undefined>();
   const timeRef = useRef<DurationObjectUnits | undefined>(undefined);
@@ -29,35 +31,30 @@ const CountdownTimer: FunctionComponent<CountdownTimerProps> = ({
   }
 
   return (
-    <Col
-      className="d-flex justify-content-center"
-      xs={12}
-      md={6}
-      order={{ xs: "first", lg: "last" }}
-    >
-      <div className="d-flex flex-column timer-container">
-        <div id="days" className="fw-bold m-1 px-3">
+    <Col className="grid-container order-1 order-sm-2 order-md-3">
+      <div className="timer-container">
+        <h3 className={`fw-bold m-1 px-1 px-lg-3 ${lg && "lg-counter"}`}>
           {time?.days}
-        </div>
-        <div className="m-1">Days</div>
+        </h3>
+        <p className={`${!lg && "my-1"}`}>Days</p>
       </div>
-      <div className="d-flex flex-column timer-container mx-3">
-        <div id="hours" className="fw-bold m-1 px-3">
+      <div className=" timer-container">
+        <h3 className={`fw-bold m-1 px-1 px-lg-3 ${lg && "lg-counter"}`}>
           {time?.hours}
-        </div>
-        <div className="m-1">Hours</div>
+        </h3>
+        <p className={`${!lg && "my-1"}`}>Hours</p>
       </div>
-      <div className="d-flex flex-column timer-container">
-        <div id="minutes" className="fw-bold m-1 px-3">
+      <div className="timer-container">
+        <h3 className={`fw-bold m-1 px-1 px-lg-3 ${lg && "lg-counter"}`}>
           {time?.minutes}
-        </div>
-        <div className="m-1">Min</div>
+        </h3>
+        <p className={`${!lg && "my-1"}`}>Mins</p>
       </div>
-      <div className="d-flex flex-column timer-container mx-3">
-        <div id="seconds" className="fw-bold m-1 px-3">
+      <div className=" timer-container">
+        <h3 className={`fw-bold m-1 px-1 px-lg-3 ${lg && "lg-counter"}`}>
           {time?.seconds?.toFixed(0)}
-        </div>
-        <div className="m-1">Sec</div>
+        </h3>
+        <p className={`${!lg && "my-1"}`}>Secs</p>
       </div>
     </Col>
   );

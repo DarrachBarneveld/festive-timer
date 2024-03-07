@@ -4,8 +4,56 @@
   overflow: hidden;
 }
 
+.countdown-container {
+  position: absolute;
+  z-index: 1;
+  background-color: var(--dark-blue);
+  width: fit-content;
+  padding: 0.25rem;
+  border-radius: 10px;
+  top: 0px;
+  left: 0px;
+  box-shadow: var(--accent-champagne) 0px 5px 15px;
+}
+
+.countdown-container:hover {
+  outline: 3px solid var(--accent-champagne);
+  cursor: pointer;
+}
+
+.countdown-container h1 {
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  color: var(--accent-champagne);
+  padding: 0.25rem 0.5rem;
+  text-align: center;
+}
+
+.countdown-container h3 {
+  font-size: clamp(0.8rem, 1.8vw, 1.4rem);
+  text-align: center;
+}
+
+.countdown-container p {
+  font-size: clamp(0.6rem, 2vw, 0.9rem);
+  text-align: center;
+}
+
 @media (min-width: 768px) {
   .map-container {
     height: calc(100vh - 56px);
   }
+}
+
+.minimise {
+  background: inherit;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--accent-champagne);
+}
+
+.minimise:hover {
+  transform: scale(1.1);
+  transition: 300ms ease-in-out;
+  color: white;
 }

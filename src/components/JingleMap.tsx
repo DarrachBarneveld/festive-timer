@@ -6,6 +6,8 @@ import axios from "axios";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import { FaMusic } from "react-icons/fa6";
 import { FaPause } from "react-icons/fa";
+import { TiArrowMinimise } from "react-icons/ti";
+
 import { z } from "zod";
 
 const INITIAL_DATA = {
@@ -59,6 +61,7 @@ import CountryCountdown from "./CountryCountdown";
 import { TRADITION_DATA } from "@/lib/data";
 import MapButton from "./ui/MapButton";
 import { getCurrentLocationLatLng } from "@/lib/geolocation";
+import GlobalCountDown from "./GlobalCountDown";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYmFybmVzbG93IiwiYSI6ImNsMGUyeHV6MDBmMGYzanBybDIyZ3BvOTQifQ.orwWz3XDibvdJSe_tfAxEA";
@@ -158,8 +161,9 @@ const JingleMap: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="position-relative">
       <div ref={mapContainer} className={styles["map-container"]} />
+      <GlobalCountDown />
 
       <CountryCountdown
         geoCodeData={countryApiData?.geoCodeData}

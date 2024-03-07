@@ -21,7 +21,7 @@
 
 body {
   background: var(--dark-blue) !important;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 a {
@@ -149,8 +149,13 @@ p {
   border: 1px solid rgba(214, 213, 213, 1);
   border-radius: 5px;
   box-shadow: 6px 4px 17px 0px #e5e3e3;
-  width: 20%;
-  height: 80%;
+  text-align: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0.5rem;
 }
 
 /* Navbar */
@@ -177,10 +182,7 @@ p {
   width: 100%;
 }
 
-#days,
-#hours,
-#minutes,
-#seconds {
+.lg-counter {
   font-size: 4vw;
 }
 

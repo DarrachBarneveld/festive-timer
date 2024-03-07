@@ -61,18 +61,22 @@ const CountryCountdown: React.FC<CountryCountdownProps> = ({
   return (
     <section className="container">
       <Row className="text-center mt-1" id="country-counter-container">
-        <Col xs={12} md={2}>
+        <Col xs={12} md={2} className="order-2 order-sm-3 order-md-1">
           <Image src={flagSrc} id="flag" alt="image of the Irish flag" />
         </Col>
 
-        <Col className="text-center" xs={12} md={4}>
+        <Col
+          className="text-center order-3 order-sm-3 order-md-2"
+          xs={12}
+          md={4}
+        >
           <div className="text-box">
             <h3 id="selectedCountry">{countryName}</h3>
             <p id="text-element">{countryText}</p>
           </div>
         </Col>
 
-        {time && <CountdownTimer timeObj={time} />}
+        {time && <CountdownTimer timeObj={time} lg />}
       </Row>
     </section>
   );
