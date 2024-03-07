@@ -16,8 +16,9 @@
   box-shadow: var(--accent-champagne) 0px 5px 15px;
 }
 
-.countdown-container:hover {
-  outline: 3px solid var(--accent-champagne);
+.countdown-container:hover,
+.countdown-container:focus {
+  outline: 2px solid var(--accent-champagne);
   cursor: pointer;
 }
 
