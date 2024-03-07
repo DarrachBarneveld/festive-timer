@@ -158,45 +158,47 @@ const JingleMap: React.FC = () => {
   }
 
   return (
-    <div className="position-relative">
-      <div ref={mapContainer} className={styles["map-container"]}>
-        <div className="map-btn-container">
-          {!isPlayingMusic ? (
+    <div className="p-0 p-lg-3" style={{ background: "#171a1c" }}>
+      <div className="position-relative">
+        <div ref={mapContainer} className={styles["map-container"]}>
+          <div className="map-btn-container">
+            {!isPlayingMusic ? (
+              <MapButton
+                className="map-btn"
+                icon={<FaMusic />}
+                onClick={playMusic}
+              />
+            ) : (
+              <MapButton
+                className="map-btn"
+                icon={<FaPause />}
+                onClick={playMusic}
+              />
+            )}
             <MapButton
               className="map-btn"
-              icon={<FaMusic />}
-              onClick={playMusic}
+              icon={<FaLocationCrosshairs />}
+              onClick={zoomToLatLng}
             />
-          ) : (
-            <MapButton
-              className="map-btn"
-              icon={<FaPause />}
-              onClick={playMusic}
-            />
-          )}
-          <MapButton
-            className="map-btn"
-            icon={<FaLocationCrosshairs />}
-            onClick={zoomToLatLng}
-          />
+          </div>
         </div>
+        <GlobalCountDown />
+
+        <CountryCountdown
+          geoCodeData={countryApiData?.geoCodeData}
+          timezoneData={countryApiData?.timeZoneData}
+        />
+
+        <audio
+          ref={audioRef}
+          controls
+          src="/audio/christmas-music.mp3"
+          className="hidden"
+        >
+          Your browser does not support the
+          <code>audio</code> element.
+        </audio>
       </div>
-      <GlobalCountDown />
-
-      <CountryCountdown
-        geoCodeData={countryApiData?.geoCodeData}
-        timezoneData={countryApiData?.timeZoneData}
-      />
-
-      <audio
-        ref={audioRef}
-        controls
-        src="/audio/christmas-music.mp3"
-        className="hidden"
-      >
-        Your browser does not support the
-        <code>audio</code> element.
-      </audio>
     </div>
   );
 };

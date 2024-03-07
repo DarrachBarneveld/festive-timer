@@ -56,38 +56,6 @@ p {
   line-height: 24px;
 }
 
-/* Home Page */
-.map-container {
-  position: absolute;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.7);
-  width: fit-content;
-  top: 10px;
-  border-radius: 10px;
-}
-
-.map-container h1,
-.map-container h2 {
-  text-shadow: 2px 2px 4px #000000b0;
-  padding: 5px;
-  margin: 0 !important;
-  font-weight: 400;
-  text-transform: uppercase;
-  text-align: center;
-}
-
-.map-container h1 {
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
-}
-.map-container h2 {
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
-}
-
-#countdown {
-  font-weight: bolder;
-  color: var(--accent-champagne);
-}
-
 #flag {
   border-radius: 5px;
   width: 100px;
